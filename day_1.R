@@ -29,8 +29,10 @@ mean(1)
 
 # Plots tab, all of your plots will be here
 # Help page !!!!
-?mean() 
+?mean
 
+x <- c(0:10, 50)
+mean(x)
 # every function has a help page which will describe how to use a function
 
 
@@ -44,29 +46,36 @@ mean(3)
 ############ ############ ############ Reading data ############ ############ ############ ############ 
 
 ?read.csv
+
 # returns dataframe
-data <- read.csv("winequalityN.csv", sep = "\t") # every time you run reading the data, check what you actually did
+data = read.csv("winequalityN.csv", sep = "\t") # every time you run reading the data, check what you actually did
 data <- read.csv("winequalityN.csv", sep = ":") 
 data <- read.csv("winequalityN.csv", sep = " ")
 data <- read.csv("winequalityN.csv", sep = ",")
+
 data <- read.csv("winequalityN.csv", sep = ",", header = FALSE) 
-data <- read.csv("winequalityN.csv", sep = ",", header = T)
+
+data = read.csv("winequalityN.csv", sep = ",", header = TRUE)
 
 ############ ############ ############  Basic Functions ############ ############ ############ ############ 
 
 # always first to do check basic measures of your data
 ?base::summary()
+?summary
+
 summary(data)
 
 # NAs in your data
 # what do with them? 
 
 # No NAs
+
 mean(data$alcohol)
 # Column with NA
 mean(data$pH)
 # remove NAs in computation
 mean(data$pH, na.rm= T)
+
 
 median(data$volatile.acidity)
 median(data$volatile.acidity, na.rm = T)
@@ -84,10 +93,11 @@ dim(data) # check dimension of your matrix
 
 
 ############# ############ ############  Accessing specific column ############ ############ ############ 
+
 data[, "pH"] # comma means 'everything', so this is give me all rows for column 'pH'
 data[, 1] # give me everything for first column
 # accessing specific row
-data[55, ] # give me all colums for row number 55
+data[55,] # give me all colums for row number 55
 
 colnames(data) # what are names of my columns?
 rownames(data) # what are names of my rows?
@@ -97,17 +107,19 @@ data[1, 1] # give me first row, first column value
 
 
 # : represents from-to sequence of numbers
+
 1:5
 3:9
 
 # accessing specific rowS and columnS
+data[1:5, 5:7]
 data[1:3, 3:4]
 data[1:3, "pH"] # when we ask for single column such as pH we actaully get a vector (list) of values
 
 # vectors
 # I want multiple columns but they are not sequential
 col_i_want <- c(1,2,5) # I make my vector variable
-data[1, col_i_want] # ask for first row and columns 1,2,5
+data[1,col_i_want ] # ask for first row and columns 1,2,5
 
 # I can do that by refering to columns by name(becareful about typos) it has to be exactly the same
 col_i_want <- c("residual.sugar","pH")
@@ -125,19 +137,25 @@ typeof(data$quality) # integers are rounded numbers
 # Let's make few basic R plots
 # Plots go to Plot tab on the right
 # they can be exported, zoomed and resized, deleted, etc
+plot(data$chlorides, data$fixed.acidity)
 plot(data$pH, data$density) # x,y scatter plot
-plot(x = data$pH, y = data$density) # x,y scatter plot
+plot(x = data$pH, y = data$citric.acid) # x,y scatter plot
 plot(y = data$pH, x = data$density) # x,y scatter plot
 
 # Histograms are plots that you do first to check how is your data distributed
-hist(data$fixed.acidity)
+hist(data$chlorides, breaks = 100)
+hist(data$fixed.acidity, breaks = 100)
 
 hist(data$residual.sugar, breaks = 200)
 hist(data$alcohol, breaks = 200)
 
 
 # check correlation between two variables
+?cor.test()
+
+
 cor.test(data$pH, data$citric.acid)
+cor.test(data$residual.sugar, data$free.sulfur.dioxide)
 
 # interpret results
 # coefficient
@@ -145,7 +163,7 @@ cor.test(data$pH, data$citric.acid)
 # 2.2e-16 is basically very small number, smallest you can store in single variable
 
 # Installing new packages, it will take 10,15mins
-install.packages("tidyverse")
+install.packages("tidyverse") 
 install.packages("ggpubr")
 
 # loading them so you can use functions

@@ -1,6 +1,8 @@
 library(tidyverse)
 library(ggpubr)	
 
+
+
 setwd("~/Desktop/RIT_Seminar_Data_Science")
 data = read.csv("winequalityN.csv", header = T, sep = ",")
 
